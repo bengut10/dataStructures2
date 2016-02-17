@@ -87,7 +87,7 @@ void IntSet::resize(int new_capacity)
         new_capacity = 1;
     }
     capacity = new_capacity;
-    int * newData = new int[capacity];
+    int * newData = new(nothrow) int[capacity];
     for(int i = 0; i < used; ++i)
     {
         newData[i] = data[i];
@@ -103,13 +103,13 @@ IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
         capacity = DEFAULT_CAPACITY;
     }
     
-    data = new int[capacity];
+    data = new(nothrow)int[capacity];
 }
 
 IntSet::IntSet(const IntSet& src)
     : capacity(src.capacity), used(src.used)
 {
-    data = new int[capacity];
+    data = new(nothrow) int[capacity];
     for(int i = 0; i < used; ++i)
     {
         data[i] = src.data[i];
@@ -125,7 +125,7 @@ IntSet& IntSet::operator=(const IntSet& rhs)
 {
    if(this != &rhs)
    {
-       int* newData = new int[rhs.capacity];
+       int* newData = new(nothrow) int[rhs.capacity];
        for(int i = 0; i < rhs.used; ++i)
        {
            newData[i] = rhs.data[i];
@@ -244,6 +244,10 @@ IntSet IntSet::subtract(const IntSet& otherIntSet) const
 
 void IntSet::reset()
 {
+    capacity = DEFAULT_CAPACITY;
+    int * newData = new(nothrow) int[capacity];
+    delete [] data;
+    data = newData;
     used = 0;
 }
 
