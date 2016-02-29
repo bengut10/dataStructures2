@@ -42,9 +42,8 @@
 #include <cassert>
 #include "sequence.h"
 
-namespace CS3358_SP16_A04_templateSequence
+namespace CS3358_SP16_A04_tempSeqOfNumChar
 {
-    
     template<typename DataType>
    sequence<DataType>::sequence() : used(0), current_index(0) { }
 
@@ -54,9 +53,9 @@ namespace CS3358_SP16_A04_templateSequence
     template<typename DataType>
    void sequence<DataType>::end()
    { current_index = (used > 0) ? used - 1 : 0; }
-    
+
     template<typename DataType>
-   void sequence <DataType>::advance()
+   void sequence<DataType>::advance()
    {
       assert( is_item() );
       ++current_index;
@@ -77,7 +76,7 @@ namespace CS3358_SP16_A04_templateSequence
    {
       assert( size() < CAPACITY );
 
-      DataType i;
+      size_type i;
 
       if ( ! is_item() )
       {
@@ -102,7 +101,7 @@ namespace CS3358_SP16_A04_templateSequence
    {
       assert( is_item() );
 
-      DataType i;
+      size_type i;
 
       for (i = current_index + 1; i < used; ++i)
          data[i - 1] = data[i];
@@ -110,13 +109,13 @@ namespace CS3358_SP16_A04_templateSequence
    }
 
     template<typename DataType>
-   DataType sequence<DataType>::size() const { return used; }
-
-   template<typename DataType>
-    bool sequence<DataType>::is_item() const { return (current_index < used); }
+    typename sequence<DataType>::size_type sequence<DataType>::size() const { return used; }
 
     template<typename DataType>
-   DataType sequence<DataType>::current() const
+   bool sequence<DataType>::is_item() const { return (current_index < used); }
+
+    template<typename DataType>
+    DataType sequence<DataType>::current() const
    {
       assert( is_item() );
 

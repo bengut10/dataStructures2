@@ -82,17 +82,15 @@
 
 #include <cstdlib>  // provides size_t
 
-namespace CS3358_SP16_A04_templateSequence
+namespace CS3358_SP16_A04_tempSeqOfNumChar
 {
-    
-    template<typename DataType>
+    template <typename DataType>
    class sequence
    {
    public:
       // TYPEDEFS and MEMBER CONSTANTS
-      DataType value_type;
-      DataType size_type;
-      static const DataType CAPACITY = 10;
+      typedef size_t size_type;
+      static const size_type CAPACITY = 10;
       // CONSTRUCTOR
       sequence();
       // MODIFICATION MEMBER FUNCTIONS
@@ -103,14 +101,14 @@ namespace CS3358_SP16_A04_templateSequence
       void add(const DataType& entry);
       void remove_current();
       // CONSTANT MEMBER FUNCTIONS
-      DataType size() const;
+      size_type size() const;
       bool is_item() const;
       DataType current() const;
 
    private:
       DataType data[CAPACITY];
-      DataType used;
-      DataType current_index;
+      size_type used;
+      size_type current_index;
    };
 }
 

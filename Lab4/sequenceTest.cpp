@@ -5,7 +5,7 @@
 #include <iostream>    // provides cout and cin
 #include <cstdlib>     // provides EXIT_SUCCESS
 #include "sequence.h"
-namespace templateSquence  = CS3358_SP16_A04_templateSequence;
+namespace tempSequence  = CS3358_SP16_A04_tempSeqOfNumChar;
 using namespace std;
 
 // PROTOTYPES for functions used by this test program:
@@ -18,12 +18,11 @@ char get_user_command();
 // Post: The user is prompted to enter a one character command.
 //       The next character is read (skipping blanks and newline
 //       characters), and this character is returned.
-void show_list(templateSquence::sequence <int> src);
+template <typename DataType>
+void show_list(CS3358_SP16_A04_tempSeqOfNumChar::sequence <DataType> src);
 // Pre: (none)
 // Post: The items of src are printed to cout (one per line).
-void show_list(templateSquence::sequence <char> src);
-// Pre: (none)
-// Post: The items of src are printed to cout (one per line).
+
 int get_object_num();
 // Pre:  (none)
 // Post: The user is prompted to enter either 1 or 2. The
@@ -49,9 +48,8 @@ char get_character();
 
 int main(int argc, char *argv[])
 {
-    templateSquence::sequence <int> s1;
-    templateSquence::sequence <char> s2;
-  
+   tempSequence::sequence <int> s1;  // A sequence of double for testing
+   tempSequence::sequence <char> s2; // A sequence of char for testing
    int objectNum;    // A number to indicate selection of s1 or s2
    double numHold;   // Holder for a real number
    char charHold;    // Holder for a character
@@ -291,18 +289,13 @@ char get_user_command()
    cout << command << endl;
    return command;
 }
-
-void show_list(templateSquence::sequence<int> src)
+template <typename DataType>
+void show_list(tempSequence::sequence<DataType> src)
 {
    for ( src.start(); src.is_item(); src.advance() )
       cout << src.current() << "  ";
 }
 
-void show_list(templateSquence::sequence <char> src)
-{
-   for ( src.start(); src.is_item(); src.advance() )
-      cout << src.current() << "  ";
-}
 
 int get_object_num()
 {
