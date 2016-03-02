@@ -1,9 +1,7 @@
 // FILE: sequence.h
 //////////////////////////////////////////////////////////////////////
-// NOTE: Two separate versions of sequence (one for a sequence of real
-//       numbers and another for a sequence characters are specified,
-//       in two separate namespaces in this header file. For both
-//       versions, the same documentation applies.
+// NOTE: sequence<Item> (a sequence of items; each item may appear
+// multiple times
 //////////////////////////////////////////////////////////////////////
 // CLASS PROVIDED: sequence (a container class for a list of items,
 //                 where each list may have a designated item called
@@ -79,17 +77,17 @@
 
 #ifndef SEQUENCE_H
 #define SEQUENCE_H
-
 #include <cstdlib>  // provides size_t
 
-namespace CS3358_SP16_A04_tempSeqOfNumChar
+namespace CS3358_SP16_A04_tempSeqParaType
 {
-    template <typename DataType>
+    template <typename item>
    class sequence
    {
    public:
       // TYPEDEFS and MEMBER CONSTANTS
-      typedef size_t size_type;
+       typedef item value_type;
+       typedef std::size_t size_type;
       static const size_type CAPACITY = 10;
       // CONSTRUCTOR
       sequence();
@@ -98,15 +96,15 @@ namespace CS3358_SP16_A04_tempSeqOfNumChar
       void end();
       void advance();
       void move_back();
-      void add(const DataType& entry);
+      void add(const item& entry);
       void remove_current();
       // CONSTANT MEMBER FUNCTIONS
       size_type size() const;
       bool is_item() const;
-      DataType current() const;
+      item current() const;
 
    private:
-      DataType data[CAPACITY];
+      item data[CAPACITY];
       size_type used;
       size_type current_index;
    };

@@ -5,7 +5,8 @@
 #include <iostream>    // provides cout and cin
 #include <cstdlib>     // provides EXIT_SUCCESS
 #include "sequence.h"
-namespace tempSequence  = CS3358_SP16_A04_tempSeqOfNumChar;
+
+namespace tempSequence  = CS3358_SP16_A04_tempSeqParaType;
 using namespace std;
 
 // PROTOTYPES for functions used by this test program:
@@ -19,7 +20,7 @@ char get_user_command();
 //       The next character is read (skipping blanks and newline
 //       characters), and this character is returned.
 template <typename DataType>
-void show_list(CS3358_SP16_A04_tempSeqOfNumChar::sequence <DataType> src);
+void show_list(CS3358_SP16_A04_tempSeqParaType::sequence <DataType> src);
 // Pre: (none)
 // Post: The items of src are printed to cout (one per line).
 
@@ -48,7 +49,7 @@ char get_character();
 
 int main(int argc, char *argv[])
 {
-   tempSequence::sequence <int> s1;  // A sequence of double for testing
+   tempSequence::sequence <double> s1;  // A sequence of double for testing
    tempSequence::sequence <char> s2; // A sequence of char for testing
    int objectNum;    // A number to indicate selection of s1 or s2
    double numHold;   // Holder for a real number

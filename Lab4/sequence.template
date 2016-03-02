@@ -42,27 +42,27 @@
 #include <cassert>
 #include "sequence.h"
 
-namespace CS3358_SP16_A04_tempSeqOfNumChar
+namespace CS3358_SP16_A04_tempSeqParaType
 {
-    template<typename DataType>
-   sequence<DataType>::sequence() : used(0), current_index(0) { }
+    template<typename item>
+   sequence<item>::sequence() : used(0), current_index(0) { }
 
-    template<typename DataType>
-   void sequence<DataType>::start() { current_index = 0; }
+    template<typename item>
+   void sequence<item>::start() { current_index = 0; }
 
-    template<typename DataType>
-   void sequence<DataType>::end()
+    template<typename item>
+   void sequence<item>::end()
    { current_index = (used > 0) ? used - 1 : 0; }
 
-    template<typename DataType>
-   void sequence<DataType>::advance()
+    template<typename item>
+   void sequence<item>::advance()
    {
       assert( is_item() );
       ++current_index;
    }
 
-    template<typename DataType>
-   void sequence<DataType>::move_back()
+    template<typename item>
+   void sequence<item>::move_back()
    {
       assert( is_item() );
       if (current_index == 0)
@@ -71,8 +71,8 @@ namespace CS3358_SP16_A04_tempSeqOfNumChar
          --current_index;
    }
 
-    template<typename DataType>
-   void sequence<DataType>::add(const DataType& entry)
+    template<typename item>
+   void sequence<item>::add(const item& entry)
    {
       assert( size() < CAPACITY );
 
@@ -96,8 +96,8 @@ namespace CS3358_SP16_A04_tempSeqOfNumChar
       ++used;
    }
 
-    template<typename DataType>
-   void sequence<DataType>::remove_current()
+    template<typename item>
+   void sequence<item>::remove_current()
    {
       assert( is_item() );
 
@@ -108,14 +108,14 @@ namespace CS3358_SP16_A04_tempSeqOfNumChar
       --used;
    }
 
-    template<typename DataType>
-    typename sequence<DataType>::size_type sequence<DataType>::size() const { return used; }
+    template<typename item>
+    typename sequence<item>::size_type sequence<item>::size() const { return used; }
 
-    template<typename DataType>
-   bool sequence<DataType>::is_item() const { return (current_index < used); }
+    template<typename item>
+   bool sequence<item>::is_item() const { return (current_index < used); }
 
-    template<typename DataType>
-    DataType sequence<DataType>::current() const
+    template<typename item>
+    item sequence<item>::current() const
    {
       assert( is_item() );
 
