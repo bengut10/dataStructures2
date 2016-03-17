@@ -4,10 +4,7 @@ using namespace std;
 
 namespace CS3358_SP16_A5P2
 {
-    cnPtrQueue::cnPtrQueue()
-    {
-        
-    }
+    cnPtrQueue::cnPtrQueue() : numItems(0) {}
     
     bool cnPtrQueue::empty() const
    {

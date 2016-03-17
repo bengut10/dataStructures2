@@ -54,6 +54,35 @@ namespace CS3358_SP16_A5P2
    // do breadth-first (level) traversal and print data
    void ShowAll_BF(PNode* pListHead, ostream& outs)
    {
-      // to be implemented (part of assignment)
+       if(pListHead == 0)
+       {
+           return;
+       }
+       else
+       {
+           cnPtrQueue s1;
+           CNode* current = 0;
+           while(pListHead != 0)
+           {
+               if(pListHead->data != 0)
+               {
+                   s1.push(pListHead->data);
+               }
+               pListHead = pListHead->link;
+           }
+
+           while(!s1.empty())
+           {
+               current = s1.front();
+               outs << current->data << " " ;
+               s1.pop();
+               
+               if(current->link != 0)
+               {
+                   current = current->link;
+                   s1.push(current);
+               }
+           }
+       }
    }
 }
