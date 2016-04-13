@@ -3,10 +3,7 @@
 using namespace std;
 
 // prototype for HiIndexMinNeg
-
 int HiIndexMinNeg(const int aName[], int size);
-
-
 
 int main()
 {
@@ -241,13 +238,11 @@ int main()
 }
 
 int HiIndexMinNeg(const int a[], int n)
-
 {
     if (n == 0)
     {
         return -999;
     }
-    
     int minIndexTheRest = HiIndexMinNeg(a+1, n - 1);
     if (a[0] < a[minIndexTheRest + 1])
     {
