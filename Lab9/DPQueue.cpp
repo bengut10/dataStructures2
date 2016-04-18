@@ -85,15 +85,15 @@ namespace CS3358_SP2016_Assign08
    }
   
     // CONSTRUCTORS AND DESTRUCTOR
-    p_queue::p_queue() : used(0), capacity(0)
+    p_queue::p_queue() : capacity(0), used(0)
    {
        heap = new ItemType [capacity];
    }
    p_queue::p_queue(const p_queue& src)
-    : used(src.used), capacity(src.capacity)
+    : capacity(src.capacity), used(src.used)
    {
        heap = new ItemType [capacity];
-       for(int i = 0; i < used; ++i)
+       for(size_type i = 0; i < used; ++i)
        {
            heap[i] = src.heap[i];
        }
@@ -108,7 +108,7 @@ namespace CS3358_SP2016_Assign08
       if(this != &rhs)
       {
           ItemType *newHeap = new ItemType[rhs.capacity];
-          for(int i = 0; i < used; ++i)
+          for(size_type i = 0; i < used; ++i)
           {
               newHeap[i] = rhs.heap[i];
           }
@@ -122,7 +122,7 @@ namespace CS3358_SP2016_Assign08
 
    void p_queue::push(const value_type& entry, size_type priority)
    {
-       if(used == capacity)
+       if(capacity <= used)
        {
            size_type newCapacity = 1 + (capacity * 1.25);
            resize(newCapacity);
@@ -149,12 +149,33 @@ namespace CS3358_SP2016_Assign08
    }
    void p_queue::pop()
    {
-       size_type remove = front();
-       heap[remove].data = heap[used -1].data;
-       heap[remove].priority = heap[used -1].priority;
-       -- used;
+       assert(size() > 0);
        
+       if(size() == 1)
+       {
+           --used;
+           return;
+       }
        
+       heap[0] = heap[used - 1];
+       used --;
+       size_type childIndex = 0;
+       size_type childPriority = 0;
+       size_type currentPriority = heap[0].priority;
+       
+       while(is_leaf(childIndex) == false)
+       {
+           childPriority = big_child_priority(childIndex);
+           if(childPriority >= currentPriority)
+           {
+               childIndex = big_child_index(childIndex);
+               swap_with_parent(childIndex);
+           }
+           else
+           {
+               break;
+           }
+       }
    }
 
    // CONSTANT MEMBER FUNCTIONS
@@ -183,16 +204,22 @@ namespace CS3358_SP2016_Assign08
    //       NOTE: All existing items in the p_queue are preserved and
    //             used remains unchanged.
    {
-       assert(new_capacity >= used);
+       if(new_capacity < used)
        {
-           ItemType* newHeap = new ItemType[new_capacity];
-           for(int i = 0; i < used; ++i)
-           {
-               newHeap[i] = heap[i];
-           }
-           delete [] heap;
-           heap = newHeap;
+           new_capacity = used;
        }
+       if(new_capacity < 1)
+       {
+           new_capacity = 1;
+       }
+       capacity = new_capacity;
+        ItemType* newHeap = new ItemType[capacity];
+        for(size_type i = 0; i < used; ++i)
+        {
+            newHeap[i] = heap[i];
+        }
+        delete [] heap;
+        heap = newHeap;
    }
 
    bool p_queue::is_leaf(size_type i) const
@@ -233,7 +260,7 @@ namespace CS3358_SP2016_Assign08
    //       (The bigger child is the one whose priority is no smaller
    //       than that of the other child, if there is one.)
    {
-       assert(is_leaf(i));
+       assert(!is_leaf(i));
        size_type childOne = (2*i)+1;
        size_type childTwo = (2*i)+2;
        if(childTwo >= used)
@@ -252,7 +279,7 @@ namespace CS3358_SP2016_Assign08
    //       (The bigger child is the one whose priority is no smaller
    //       than that of the other child, if there is one.)
    {
-       assert(is_leaf(i));
+       assert(!is_leaf(i));
        size_type childOne = (2*i)+1;
        size_type childTwo = (2*i)+2;
        if(childTwo >= used)
@@ -268,13 +295,10 @@ namespace CS3358_SP2016_Assign08
    // Post: The item at heap[i] has been swapped with its parent.
    {
         assert(i > 0 && i < used);
-       value_type tempValue = heap[i].data;
-       size_type tempPriority = heap[i].priority;
+       ItemType tempValue = heap[i];
        size_type parent = (i-1)/2;
-       heap[i].data = heap[parent].data;
-       heap[i].priority = heap[parent].priority;
-       heap[parent].data = tempValue;
-       heap[parent].priority = tempPriority;
+       heap[i] = heap[parent];
+       heap[parent] = tempValue;
    }
 }
 
