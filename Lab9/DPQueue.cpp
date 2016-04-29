@@ -156,13 +156,11 @@ namespace CS3358_SP2016_Assign08
            --used;
            return;
        }
-       
        heap[0] = heap[used - 1];
        used --;
        size_type childIndex = 0;
        size_type childPriority = 0;
        size_type currentPriority = heap[0].priority;
-       
        while(is_leaf(childIndex) == false)
        {
            childPriority = big_child_priority(childIndex);
@@ -177,7 +175,6 @@ namespace CS3358_SP2016_Assign08
            }
        }
    }
-
    // CONSTANT MEMBER FUNCTIONS
    p_queue::size_type p_queue::size() const
    {
